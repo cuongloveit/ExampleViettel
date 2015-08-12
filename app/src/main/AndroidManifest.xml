@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.androidtmc.exampleviettel" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        tools:replace="android:icon,android:theme"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <!-- Tùy chọn bắt buộc -->
+        <activity android:name="com.viettel.android.gsm.ViettelActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!--
+        Nếu bật tính năng này thì ViettelAPI SDK sẽ tự nhận dạng ra mã số xác minh trong các
+        lần thanh toán, chỉ áp dụng với tài nguyên Payment. Yêu cầu phải có quyền truy cập:
+        <uses-permission android:name="android.permission.RECEIVE_SMS" />
+        LƯU Ý: đây là lựa chọn tùy chỉnh, có thể có hoặc không.
+        -->
+        <receiver android:name="com.viettel.android.gsm.ViettelIncommingSMS"
+            android:permission="android.permission.BROADCAST_SMS" >
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+            <meta-data android:name="port" android:value="9111" />
+        </receiver>
+    </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
+</manifest>
